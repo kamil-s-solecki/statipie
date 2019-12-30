@@ -1,4 +1,6 @@
 import socket
+import threading
+from statipie.connection import Connection
 
 
 class Server():
@@ -9,12 +11,11 @@ class Server():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             s.bind(("127.0.0.1", self.port))
-            s.listen(1)
-            conn, addr = s.accept()
-            with conn:
+            s.listen(5)
+
+            while True:
+                conn, addr = s.accept()
                 print('Connected by', addr)
-                while True:
-                    data = conn.recv(1024)
-                    if not data:
-                        break
-                    conn.sendall(data)
+                thread = threading.Thread(target=Connection(conn).handle)
+                thread.daemon = False
+                thread.start()
