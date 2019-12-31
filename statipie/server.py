@@ -1,8 +1,8 @@
 import socket
 import threading
 from statipie.connection import Connection
-from statipie.request import Request
 from statipie import response
+from statipie import request
 
 
 def create_connection_handler(conn):
@@ -10,7 +10,7 @@ def create_connection_handler(conn):
         with conn:
             connection = Connection(conn)
             raw_request = connection.read_raw_request()
-            req = Request(raw_request)
+            req = request.parse(raw_request)
             resp = response.create_from_request(req)
             connection.send(resp)
     return handler
