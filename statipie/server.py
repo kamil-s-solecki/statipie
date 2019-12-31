@@ -5,17 +5,6 @@ from statipie import response
 from statipie import request
 
 
-def create_connection_handler(conn):
-    def handler():
-        with conn:
-            connection = Connection(conn)
-            raw_request = connection.read_raw_request()
-            req = request.parse(raw_request)
-            resp = response.create_from_request(req)
-            connection.send(resp)
-    return handler
-
-
 class Server():
     def __init__(self, port):
         self.port = port
@@ -29,7 +18,18 @@ class Server():
             while True:
                 conn, addr = s.accept()
                 print('Connected by', addr)
-                handler = create_connection_handler(conn)
+                handler = _create_connection_handler(conn)
                 thread = threading.Thread(target=handler)
                 thread.daemon = False
                 thread.start()
+
+
+def _create_connection_handler(conn):
+    def handler():
+        with conn:
+            connection = Connection(conn)
+            raw_request = connection.read_raw_request()
+            req = request.parse(raw_request)
+            resp = response.create_from_request(req)
+            connection.send(resp)
+    return handler
