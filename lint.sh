@@ -1,3 +1,3 @@
 #!/bin/sh
 
-flake8 *.py statipie
+flake8 *.py statipie tests
