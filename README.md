@@ -16,4 +16,4 @@ Serves files from `dir` at `127.0.0.1:8080`.
 
 Uri `/` defaults to `/index.html`.
 
-If no `dir` is passed as an argument, then serves `example_site`.  
+If no `dir` is passed as an argument, then [example_site](example_site/) is being served.
