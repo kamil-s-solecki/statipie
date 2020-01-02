@@ -4,7 +4,7 @@ from statipie.connection import Connection
 from statipie import request
 
 
-class ServierConfig:
+class ServerConfig:
     def __init__(self, port):
         self.port = port
 
@@ -28,7 +28,7 @@ class Server():
                 thread.daemon = False
                 thread.start()
 
-    def _create_handler(self, conn):
+    def _create_connection_handler(self, conn):
         def handler():
             with conn:
                 connection = Connection(conn)

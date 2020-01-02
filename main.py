@@ -1,16 +1,26 @@
 #!/usr/bin/python3
 
+import sys
 from statipie.server import Server
 from statipie.server import ServerConfig
 from statipie.response import ResponseGenerator
+from statipie.statics_dir import StaticsDir
+
+
+def create_server():
+    try:
+        statics_dir_path = sys.argv[1]
+    except IndexError:
+        statics_dir_path = 'example_site'
+
+    config = ServerConfig(port=8080)
+    response_generator = ResponseGenerator(StaticsDir(statics_dir_path))
+    return Server(config, response_generator)
 
 
 def main():
     print("---- Running ----")
-
-    config = ServerConfig(port=8080)
-    response_generator = ResponseGenerator()
-    server = Server(config, response_generator)
+    server = create_server()
     server.run()
 
 
