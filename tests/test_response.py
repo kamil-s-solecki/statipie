@@ -27,6 +27,16 @@ class ResponseGeneratorTest(unittest.TestCase):
 
         self.assertEquals(response.as_bytes(), response_bytes(SOME_CONTENT))
 
+    def test_defaults_to_index_html_file(self):
+        statics_dir = StaticsDirMock()
+        statics_dir.given_file('/index.html', SOME_CONTENT)
+        generator = ResponseGenerator(statics_dir)
+        request = Request(uri='/', method=None, protocol=None)
+
+        response = generator.create_from_request(request)
+
+        self.assertEquals(response.as_bytes(), response_bytes(SOME_CONTENT))
+
 
 class StaticsDirMock:
     def __init__(self):

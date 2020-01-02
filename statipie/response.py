@@ -7,7 +7,8 @@ class ResponseGenerator:
 
     def create_from_request(self, request):
         try:
-            body = self._statics_dir.read_bytes(request.uri)
+            path = '/index.html' if '/' == request.uri else request.uri
+            body = self._statics_dir.read_bytes(path)
             res = Response(body)
         except FileDoesNotExistException:
             res = NotFoundResponse()
