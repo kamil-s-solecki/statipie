@@ -10,10 +10,15 @@ This code is being written for educational purposes only. For security reasons i
 ### Usage
 
 ```
-./main.py [dir]
-```
+./main.py [-h] [--host HOST] [--port PORT] [dir]
 
-Serves files from `dir` at `127.0.0.1:8080`.
+dir              directory with static files to serve
+                 (default: 'example_site')
+
+-h, --help       show help message and exit
+--host HOST      (default: '127.0.0.1')
+--port PORT      (default: 8080)
+```
 
 Uri `/` defaults to `/index.html`.
 
