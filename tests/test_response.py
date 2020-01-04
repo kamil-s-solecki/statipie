@@ -4,7 +4,7 @@ from statipie.request import Request
 from statipie.response import NotFoundResponse
 from statipie.response import ResponseGenerator
 
-SOME_URI = 'some_uri.html'
+SOME_HTML_URI = 'some_uri.html'
 SOME_CONTENT = 'some file content'
 
 
@@ -19,9 +19,9 @@ class ResponseGeneratorTest(unittest.TestCase):
 
     def test_returns_200_response_with_file_content(self):
         statics_dir = StaticsDirMock()
-        statics_dir.given_file(SOME_URI, SOME_CONTENT)
+        statics_dir.given_file(SOME_HTML_URI, SOME_CONTENT)
         generator = ResponseGenerator(statics_dir)
-        request = Request(uri=SOME_URI, method=None, protocol=None)
+        request = Request(uri=SOME_HTML_URI, method=None, protocol=None)
 
         response = generator.create_from_request(request)
 
@@ -32,6 +32,16 @@ class ResponseGeneratorTest(unittest.TestCase):
         statics_dir.given_file('/index.html', SOME_CONTENT)
         generator = ResponseGenerator(statics_dir)
         request = Request(uri='/', method=None, protocol=None)
+
+        response = generator.create_from_request(request)
+
+        self.assertEquals(response.as_bytes(), response_bytes(SOME_CONTENT))
+
+    def test_returns_200_response_with_proper_content_type(self):
+        statics_dir = StaticsDirMock()
+        statics_dir.given_file(SOME_HTML_URI, SOME_CONTENT)
+        generator = ResponseGenerator(statics_dir)
+        request = Request(uri=SOME_HTML_URI, method=None, protocol=None)
 
         response = generator.create_from_request(request)
 
