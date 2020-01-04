@@ -23,7 +23,7 @@ class RequestTest(unittest.TestCase):
             with self.subTest(raw=raw):
                 r = parse(raw)
 
-                self.assertEquals(result, r.method)
+                self.assertEqual(result, r.method)
 
     def test_parses_uri_from_request_line(self):
         raw = bytes('GET /foo/bar HTTP/1.1', 'ascii')
