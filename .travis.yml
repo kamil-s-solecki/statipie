@@ -5,5 +5,9 @@ python:
 install:
   - pip install -r requirements.txt
 
-script:
-  - python3 -m unittest discover
+jobs:
+  include:
+    - stage: lint
+      script: python3 -m 'flake8' *.py statipie tests
+    - stage: test
+      script: python3 -m unittest discover
