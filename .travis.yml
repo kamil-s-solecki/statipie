@@ -8,6 +8,6 @@ install:
 jobs:
   include:
     - stage: lint
-      script: python3 -m 'flake8' *.py statipie tests
+      script: python3 -m 'flake8' *.py statipie tests util
     - stage: test
       script: python3 -m unittest discover

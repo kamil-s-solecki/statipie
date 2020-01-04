@@ -5,7 +5,8 @@ from statipie import request
 
 
 class ServerConfig:
-    def __init__(self, port):
+    def __init__(self, host, port):
+        self.host = host
         self.port = port
 
 
@@ -17,7 +18,7 @@ class Server():
     def run(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            s.bind(("127.0.0.1", self._config.port))
+            s.bind((self._config.host, self._config.port))
             s.listen(5)
 
             while True:
