@@ -20,5 +20,5 @@ class MimeTest(unittest.TestCase):
             with self.subTest(ext=ext):
                 mime = create_from_extension(ext)
 
-                self.assertEquals(expected_type, mime.type)
-                self.assertEquals(expected_charset, mime.charset)
+                self.assertEqual(expected_type, mime.type)
+                self.assertEqual(expected_charset, mime.charset)
