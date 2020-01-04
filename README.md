@@ -23,3 +23,6 @@ dir              directory with static files to serve
 Uri `/` defaults to `/index.html`.
 
 If no `dir` is passed as an argument, then [example_site](example_site/) is being served.
+
+### Encoding
+Server assumes utf-8 encoding of all text/* and application/* files
